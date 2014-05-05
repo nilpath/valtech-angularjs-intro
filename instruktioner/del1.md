@@ -10,7 +10,7 @@ Jag tänkte ge er ganska fria tyglar när det kommer till själva implementation
 * Ni behöver [registrera](https://docs.angularjs.org/guide/controller) er kontroller till er modul.
 * Ni behöver koppla er controller till er vy med hjälp av [ngController](https://docs.angularjs.org/api/ng/directive/ngController).
 
-## Lista artikalar
+## Lista artiklar
 
 Nedan finner ni en mängd data som jag vill att ni ska lista i eran vy. Ett sätt att göra det här på är att använda sig av [ngRepeat](https://docs.angularjs.org/api/ng/directive/ngRepeat). För varje produkt i listan så vill jag att följande sak ska finnas med
 
