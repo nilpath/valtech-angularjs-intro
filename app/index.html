@@ -28,6 +28,8 @@
           <td ng-bind="item.unit"></td>
           <td ng-bind="item.product"></td>
           <td ng-bind="item.price"></td>
+          <td><a href="#" ng-click="editItem(item, $event)">edit</a></td>
+          <td><a href="#" ng-click="deleteItem(item, $event)">delete</a></td>
         </tr>
       </table>
 
