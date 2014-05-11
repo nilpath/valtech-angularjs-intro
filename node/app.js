@@ -7,21 +7,21 @@ var server = restify.createServer({
   version: '0.0.1'
 });
 
+
+//setup cors'
+restify.CORS.ALLOW_HEADERS.push('sid');
+server.use(restify.CORS());
+server.use(restify.fullResponse());
+
+server.use(restify.bodyParser());
+
 var CurrentList = [
   {
     id: Math.random().toString(36).substr(3, 8),
     qty: 1,
     unit: 'dl',
     product: 'Matlagningsgrädde',
-    price: '15',
-    purchased: true
-  },
-  {
-    id: Math.random().toString(36).substr(3, 8),
-    qty: 4,
-    unit: 'st',
-    product: 'Äpplen',
-    price: '20',
+    price: 15,
     purchased: true
   },
   {
@@ -29,23 +29,7 @@ var CurrentList = [
     qty: 1,
     unit: 'påse',
     product: 'bröd',
-    price: '35',
-    purchased: false
-  },
-  {
-    id: Math.random().toString(36).substr(3, 8),
-    qty: 5,
-    unit: 'st',
-    product: 'röda paprikor',
-    price: '15',
-    purchased: false
-  },
-  {
-    id: Math.random().toString(36).substr(3, 8),
-    qty: 1,
-    unit: 'st',
-    product: 'Magnum Mandel',
-    price: '18',
+    price: 35,
     purchased: false
   }
 ];
@@ -60,13 +44,12 @@ server.get('/items', function getItems(req, res, next) {
 server.post('/items', function createItem(req, res, next){
   var newItem = {
     id: Math.random().toString(36).substr(3, 8),
-    qty: req.params.qty,
-    unit: req.params.unit,
-    product: req.params.product,
-    price: req.params.price,
+    qty: req.body.qty,
+    unit: req.body.unit,
+    product: req.body.product,
+    price: req.body.price,
     purchased: false
   };
-
   CurrentList.push(newItem);
 
   res.json(201, newItem);
@@ -95,11 +78,11 @@ server.put('/items/:id', function updateItem(req, res, next){
   CurrentList.forEach(function(item){
     if(item.id === id) {
 
-      item.qty = req.params.qty ? req.params.qty : item.qty;
-      item.unit = req.params.unit ? req.params.unit : item.unit;
-      item.product = req.params.product ? req.params.product : item.product;
-      item.price = req.params.price ? req.params.price : item.price;
-      item.purchased = req.params.purchased ? req.params.purchased : item.purchased;
+      item.qty = req.body.qty ? req.body.qty : item.qty;
+      item.unit = req.body.unit ? req.body.unit : item.unit;
+      item.product = req.body.product ? req.body.product : item.product;
+      item.price = req.body.price ? req.body.price : item.price;
+      item.purchased = req.body.purchased ? req.body.purchased : item.purchased;
 
       res.json(200, item);
       next();
@@ -122,6 +105,7 @@ server.del('/items/:id', function deleteItem(req, res, next){
   });
 
   if(index) {
+    CurrentList.splice(index, 1);
     res.json(204, {id: id});
   }
   else {
