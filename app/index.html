@@ -17,12 +17,30 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body>
-    <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+  <body ng-app="valtechAngularIntroApp">
+    <div class="container" ng-controller="listController">
 
-    <div class="container"></div>
+      <h1>Inköpslista</h1>
+      <table ng-repeat="item in list">
+        <tr ng-class="{purchased: item.purchased}" class="item">
+          <td><input ng-model="item.purchased" type="checkbox"/></td>
+          <td ng-bind="item.qty"></td>
+          <td ng-bind="item.unit"></td>
+          <td ng-bind="item.product"></td>
+          <td ng-bind="item.price"></td>
+        </tr>
+      </table>
+
+      <form ng-submit="handleItem()">
+        <input type="number" ng-model="formItem.qty" required placeholder="Qty"/>
+        <select ng-model="formItem.unit" ng-options="unit for unit in units" required>
+          <option value="">unit</option>
+        </select>
+        <input type="text" ng-model="formItem.product" required placeholder="Product Name"/>
+        <input type="number" ng-model="formItem.price" required placeholder="Price"/>
+        <input type="submit" value="{{formItem.formType}}"/>
+      </form>
+    </div>
 
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -41,7 +59,6 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
         <!-- endbuild -->
 </body>
 </html>
