@@ -21,27 +21,10 @@
     <div class="container" ng-controller="listController">
 
       <h1>Inköpslista</h1>
-      <table ng-repeat="item in list">
-        <tr ng-class="{purchased: item.purchased}" class="item">
-          <td><input ng-model="item.purchased" type="checkbox"/></td>
-          <td ng-bind="item.qty"></td>
-          <td ng-bind="item.unit"></td>
-          <td ng-bind="item.product"></td>
-          <td ng-bind="item.price"></td>
-          <td><a href="#" ng-click="editItem(item, $event)">edit</a></td>
-          <td><a href="#" ng-click="deleteItem(item, $event)">delete</a></td>
-        </tr>
+      <table vaia-list vaia-items="list" vaia-units="units">
+        <tr vaia-list-item item="item" ng-repeat="item in list"></tr>
       </table>
 
-      <form ng-submit="handleItem()">
-        <input type="number" ng-model="formItem.qty" required placeholder="Qty"/>
-        <select ng-model="formItem.unit" ng-options="unit for unit in units" required>
-          <option value="">unit</option>
-        </select>
-        <input type="text" ng-model="formItem.product" required placeholder="Product Name"/>
-        <input type="number" ng-model="formItem.price" required placeholder="Price"/>
-        <input type="submit" value="{{formItem.formType}}"/>
-      </form>
     </div>
 
     <!--[if lt IE 9]>
@@ -63,6 +46,8 @@
         <script src="scripts/app.js"></script>
 
         <script src="scripts/services/listResource.js"></script>
+
+        <script src="scripts/directives/listDirective.js"></script>
 
         <script src="scripts/controllers/listController.js"></script>
 

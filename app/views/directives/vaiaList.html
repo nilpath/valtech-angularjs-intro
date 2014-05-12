@@ -1,0 +1,16 @@
+<div>
+  <table>
+    <tbody ng-transclude>
+    </tbody>
+  </table>
+
+  <form ng-submit="handleItem()">
+    <input type="number" ng-model="formItem.qty" required placeholder="Qty"/>
+    <select ng-model="formItem.unit" ng-options="unit for unit in units" required>
+      <option value="">unit</option>
+    </select>
+    <input type="text" ng-model="formItem.product" required placeholder="Product Name"/>
+    <input type="number" ng-model="formItem.price" required placeholder="Price"/>
+    <input type="submit" value="{{formItem.formType}}"/>
+  </form>
+</div>
