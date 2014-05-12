@@ -78,11 +78,11 @@ server.put('/items/:id', function updateItem(req, res, next){
   CurrentList.forEach(function(item){
     if(item.id === id) {
 
-      item.qty = req.body.qty ? req.body.qty : item.qty;
-      item.unit = req.body.unit ? req.body.unit : item.unit;
-      item.product = req.body.product ? req.body.product : item.product;
-      item.price = req.body.price ? req.body.price : item.price;
-      item.purchased = req.body.purchased ? req.body.purchased : item.purchased;
+      item.qty = req.body.qty !== undefined ? req.body.qty : item.qty;
+      item.unit = req.body.unit !== undefined ? req.body.unit : item.unit;
+      item.product = req.body.product !== undefined ? req.body.product : item.product;
+      item.price = req.body.price !== undefined ? req.body.price : item.price;
+      item.purchased = req.body.purchased !== undefined ? req.body.purchased : item.purchased;
 
       res.json(200, item);
       next();
@@ -104,7 +104,7 @@ server.del('/items/:id', function deleteItem(req, res, next){
     }
   });
 
-  if(index) {
+  if(index !== undefined) {
     CurrentList.splice(index, 1);
     res.json(204, {id: id});
   }
